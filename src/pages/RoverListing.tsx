@@ -11,32 +11,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styled from '@emotion/styled';
 import Link from '@mui/material/Link';
+import Josh from '../assets/josh-thicc.png';
 
 import { RoverCard } from '../components/RoverCard';
 import { NewerCard } from '../components/NewerCard';
 import { getRovers } from '../modules/restApi';
 import { GetRoversResponse } from '../interfaces/rover.interface';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Icon } from '@mui/material';
 
 const RoverListingContainer = styled.div`
   display: absolute;
   width: 100%;
 `
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function RoverListing() {
 
@@ -59,11 +45,13 @@ export default function RoverListing() {
   return (
     <RoverListingContainer>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
+      <AppBar sx={{backgroundColor: 'black'}} position="relative">
+        <Toolbar sx={{color: 'white'}}>
+          <Icon sx={{mr: 1.0}} >
+            <img src={Josh} height={25} width={25}/>
+          </Icon>
           <Typography variant="h6" color="inherit" noWrap>
-            Album layout
+            Coding Challenge
           </Typography>
         </Toolbar>
       </AppBar>
@@ -84,29 +72,25 @@ export default function RoverListing() {
               color="text.primary"
               gutterBottom
             >
-              Album layout
+              Rover Browser
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
+              Select one of the rovers below to see their photos!
             </Typography>
             <Stack
-              sx={{ pt: 4 }}
+              sx={{ pt: 1 }}
               direction="row"
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 2 }} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={4}>
+          <Grid sx={{justifyContent: 'center'}} container spacing={4}>
             {rovers.map((card, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
+              <Grid item key={index} xs={12} sm={6} md={5}>
                 <NewerCard
                   name={card.name}
                   totalPhotos={card.total_photos}

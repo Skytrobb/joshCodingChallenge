@@ -10,7 +10,12 @@ import {
 import { NewerCard } from './components/NewerCard.tsx'
 import './index.css'
 
-const theme = createTheme();
+const theme = createTheme({  
+  typography: {
+    fontFamily: 
+      "Lato",
+  },
+});
 
 const router = createBrowserRouter([
   {
