@@ -1,23 +1,22 @@
 import {useState, useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styled from '@emotion/styled';
-import Link from '@mui/material/Link';
-import Josh from '../assets/josh-thicc.png';
+import { data } from '../roverdata';
+import { useNavigate } from 'react-router-dom';
 
 import { RoverCard } from '../components/RoverCard';
 import { NewerCard } from '../components/NewerCard';
 import { getRovers } from '../modules/restApi';
 import { GetRoversResponse } from '../interfaces/rover.interface';
 import { CircularProgress, Icon } from '@mui/material';
+import Header from '../components/Header';
 
 const RoverListingContainer = styled.div`
   display: absolute;
@@ -28,33 +27,27 @@ export default function RoverListing() {
 
   const [rovers, setRovers] = useState<GetRoversResponse>()
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getRovers()
-    .then((data) => {
-      console.log('data', data)
-      setRovers(data)
-      setIsLoading(false)
-    })
-    .catch((err) => {
-      console.log()
-    })
+    setRovers(data.rovers)
+    setIsLoading(false)
+    // getRovers()
+    // .then((data) => {
+    //   console.log('data', data)
+    //   setRovers(data)
+    //   setIsLoading(false)
+    // })
+    // .catch((err) => {
+    //   console.log()
+    // })
   }, [])
 
   if (isLoading) return <CircularProgress />
   return (
     <RoverListingContainer>
       <CssBaseline />
-      <AppBar sx={{backgroundColor: 'black'}} position="relative">
-        <Toolbar sx={{color: 'white'}}>
-          <Icon sx={{mr: 1.0}} >
-            <img src={Josh} height={25} width={25}/>
-          </Icon>
-          <Typography variant="h6" color="inherit" noWrap>
-            Coding Challenge
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header />
       <main>
         {/* Hero unit */}
         <Box
@@ -91,13 +84,14 @@ export default function RoverListing() {
           <Grid sx={{justifyContent: 'center'}} container spacing={4}>
             {rovers.map((card, index) => (
               <Grid item key={index} xs={12} sm={6} md={5}>
-                <NewerCard
-                  name={card.name}
-                  totalPhotos={card.total_photos}
-                  launchDate={card.launch_date}
-                  landingDate={card.landing_date}
-                  cameras={card.cameras}
-                  />
+                  <NewerCard
+                    name={card.name}
+                    totalPhotos={card.total_photos}
+                    launchDate={card.launch_date}
+                    landingDate={card.landing_date}
+                    cameras={card.cameras}
+                    id={card.id}
+                    />
               </Grid>
             ))}
           </Grid>

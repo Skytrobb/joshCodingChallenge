@@ -15,6 +15,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Camera } from '../interfaces/rover.interface';
+import { Link } from 'react-router-dom';
+
 import { ListItem, ListItemText, List } from '@mui/material';
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -53,6 +55,7 @@ export function NewerCard({
   totalPhotos = 1122334,
   launchDate = "01/01/1990",
   landingDate = "01/01/1991",
+  id,
   cameras,
 }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -60,13 +63,13 @@ export function NewerCard({
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
-  console.log('cameras in parent', cameras)
+
   return (
     <Card sx={{ maxWidth: 345 }}>
+      <Link style={{ color: 'inherit' }} to={`/rover/${id}`}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: '#575755' }} aria-label="recipe">
             {name[0]}
           </Avatar>
         }
@@ -80,11 +83,12 @@ export function NewerCard({
         </Typography>
         <Typography sx={{ mb: 1.0 }}>{launchDate}</Typography>
         </div>
-        <Typography variant="subtitle2">
+        <Typography color='text.secondary' variant="subtitle2">
           Landing Date:
         </Typography>
         <Typography sx={{ mb: 1.0 }}>{landingDate}</Typography>
       </CardContent>
+      </Link>
       <CardActions disableSpacing>
       <Typography sx={{ ml: 1.0 }} variant='h6'>Cameras</Typography>
         <ExpandMore
