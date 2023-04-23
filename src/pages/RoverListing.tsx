@@ -112,6 +112,7 @@ export default function RoverListing() {
                   totalPhotos={card.total_photos}
                   launchDate={card.launch_date}
                   landingDate={card.landing_date}
+                  cameras={card.cameras}
                   />
               </Grid>
             ))}

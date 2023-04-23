@@ -69,6 +69,7 @@ const ArrowCard = () => {
         <Typography sx={{ mb: 1.0 }}>{'12/12/1991'}</Typography>
       </CardContent>
       <CardActions disableSpacing>
+        <Typography>Cameras</Typography>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
