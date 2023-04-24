@@ -37,7 +37,7 @@ export default function RoverListing() {
        console.log('failed to get rovers', err)
     })
   }, [])
-s
+
   if (isLoading) return <Spinner />
   return (
     <RoverListingContainer>

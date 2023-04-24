@@ -10,7 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { data } from '../roverimages';
 
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const DetailContainer = styled.div`
   display: flex;
@@ -23,20 +23,21 @@ const DetailContainer = styled.div`
 
 const RoverDetail = () => {
   const { state } = useLocation();
-  const today = moment().format('YYYY-MM-DD')
+  const today = dayjs().format('YYYY-MM-DD')
   const { name } = state.rover;
   const [images, setImages] = useState([])
-  const [date, setDate] = useState<moment.Moment | string>(today)
+  const [date, setDate] = useState<dayjs.Dayjs | null>(dayjs())
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchDate = moment(date).format('YYYY-MM-DD')
+    const getFormattedDate = dayjs(date).format('YYYY-MM-DD')
+    console.log('getDate', getFormattedDate)
     // This is for getting the local photo data because 
     // I was hitting rate limit with NASA API
 
     // setImages(data.photos)
     // setIsLoading(false)
-    getImages({ rover: state.rover.name, date: fetchDate})
+    getImages({ rover: state.rover.name, date: getFormattedDate})
     .then((data) => {
       setImages(data.photos)
       setIsLoading(false)
@@ -51,9 +52,9 @@ const RoverDetail = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
             label="Select Date"
+            defaultValue={dayjs()}
             value={date}
-            onChange={(newValue) => setDate(newValue.$d ?? today)
-          }
+            onChange={(newValue) => setDate(newValue.$d)}
           />
       </LocalizationProvider>
       <RoverImageList images={images} />
