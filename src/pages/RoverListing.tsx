@@ -1,6 +1,4 @@
 import {useState, useEffect} from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -9,14 +7,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import styled from '@emotion/styled';
 import { data } from '../roverdata';
-import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 import { RoverCard } from '../components/RoverCard';
-import { NewerCard } from '../components/NewerCard';
 import { getRovers } from '../modules/restApi';
-import { GetRoversResponse } from '../interfaces/rover.interface';
-import { CircularProgress, Icon } from '@mui/material';
-import Header from '../components/Header';
+import { Rover } from '../interfaces/rover.interface';
 
 const RoverListingContainer = styled.div`
   display: absolute;
@@ -25,25 +20,25 @@ const RoverListingContainer = styled.div`
 
 export default function RoverListing() {
 
-  const [rovers, setRovers] = useState<GetRoversResponse>()
+  const [rovers, setRovers] = useState<Rover[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const navigate = useNavigate();
 
   useEffect(() => {
-    setRovers(data.rovers)
-    setIsLoading(false)
-    // getRovers()
-    // .then((data) => {
-    //   console.log('data', data)
-    //   setRovers(data)
-    //   setIsLoading(false)
-    // })
-    // .catch((err) => {
-    //   console.log()
-    // })
-  }, [])
+    // use this to use static data and get around rate limit
 
-  if (isLoading) return <CircularProgress />
+    // setRovers(data.rovers)
+    // setIsLoading(false)
+    getRovers()
+    .then((data) => {
+      setRovers(data)
+      setIsLoading(false)
+    })
+    .catch((err) => {
+       console.log('failed to get rovers', err)
+    })
+  }, [])
+s
+  if (isLoading) return <Spinner />
   return (
     <RoverListingContainer>
       <CssBaseline />
@@ -83,7 +78,7 @@ export default function RoverListing() {
           <Grid sx={{justifyContent: 'center'}} container spacing={4}>
             {rovers.map((card, index) => (
               <Grid item key={index} xs={12} sm={6} md={5}>
-                  <NewerCard
+                  <RoverCard
                     rover={card}
                   />
               </Grid>

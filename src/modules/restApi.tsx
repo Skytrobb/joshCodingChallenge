@@ -15,9 +15,9 @@ export const getRovers = () => {
     })
 }
 
-export const getImages = ({ rover, date }) => {
+export const getImages = ({ rover, date }: {rover: Rover, date: string}) => {
   console.log('rover', rover, 'date', date)
-  return axios.get(`${BASE_URL}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=DEMO_KEY`)
+  return axios.get(`${BASE_URL}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${API_KEY}`)
     .then((response) => {
       console.log('get images', response.data);
       return response.data;
