@@ -11,7 +11,7 @@ interface Image {
 const RoverImageList = ({ images }: { images: Image[] }) => {
   const largeScreen = useMediaQuery('(min-width:600px)');
 
-  if (images.length === 0) return <p>No Images found</p>
+  if (images.length === 0) return <p>No Images For Selected Date</p>
 
   return (
     <ImageList sx={{ width: "90vw", height: 'fit-content' }} cols={largeScreen ? 4 : 1} rowHeight={'auto'}>

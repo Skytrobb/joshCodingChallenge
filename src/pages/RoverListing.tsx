@@ -62,7 +62,7 @@ export default function RoverListing() {
               Rover Browser
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Select one of the rovers below to see their photos!
+              Select one of the rovers below to see their photos
             </Typography>
             <Stack
               sx={{ pt: 1 }}

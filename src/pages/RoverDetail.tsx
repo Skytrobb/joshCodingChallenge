@@ -54,6 +54,7 @@ const RoverDetail = () => {
             label="Select Date"
             defaultValue={dayjs()}
             value={date}
+            maxDate={dayjs()}
             onChange={(newValue) => setDate(newValue.$d)}
           />
       </LocalizationProvider>
