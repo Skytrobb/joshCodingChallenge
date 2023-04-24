@@ -47,7 +47,6 @@ export default function RoverListing() {
   return (
     <RoverListingContainer>
       <CssBaseline />
-      <Header />
       <main>
         {/* Hero unit */}
         <Box
@@ -85,13 +84,8 @@ export default function RoverListing() {
             {rovers.map((card, index) => (
               <Grid item key={index} xs={12} sm={6} md={5}>
                   <NewerCard
-                    name={card.name}
-                    totalPhotos={card.total_photos}
-                    launchDate={card.launch_date}
-                    landingDate={card.landing_date}
-                    cameras={card.cameras}
-                    id={card.id}
-                    />
+                    rover={card}
+                  />
               </Grid>
             ))}
           </Grid>

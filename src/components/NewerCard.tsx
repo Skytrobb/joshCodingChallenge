@@ -50,43 +50,36 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export function NewerCard({
-  name = "Curiosity",
-  totalPhotos = 1122334,
-  launchDate = "01/01/1990",
-  landingDate = "01/01/1991",
-  id,
-  cameras,
-}) {
+export function NewerCard({ rover }) {
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  console.log('in newercard', rover)
 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <Link style={{ color: 'inherit' }} to={`/rover/${id}`}>
+      <Link style={{ color: 'inherit' }} to={`/rover/${rover.id}`} state={{ rover }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: '#575755' }} aria-label="recipe">
-            {name[0]}
+            {rover.name[0]}
           </Avatar>
         }
-        title={name}
-        subheader={`${totalPhotos} photos`}
+        title={rover.name}
+        subheader={`${rover.total_photos} photos`}
       />
       <CardContent>
         <div>
         <Typography color='text.secondary' variant="subtitle2">
           Launch Date:
         </Typography>
-        <Typography sx={{ mb: 1.0 }}>{launchDate}</Typography>
+        <Typography sx={{ mb: 1.0 }}>{rover.launch_date}</Typography>
         </div>
         <Typography color='text.secondary' variant="subtitle2">
           Landing Date:
         </Typography>
-        <Typography sx={{ mb: 1.0 }}>{landingDate}</Typography>
+        <Typography sx={{ mb: 1.0 }}>{rover.landing_date}</Typography>
       </CardContent>
       </Link>
       <CardActions disableSpacing>
@@ -102,7 +95,7 @@ export function NewerCard({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <CameraText cameras={cameras} />
+          <CameraText cameras={rover.cameras} />
         </CardContent>
       </Collapse>
     </Card>

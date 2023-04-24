@@ -14,3 +14,15 @@ export const getRovers = () => {
       throw err;
     })
 }
+
+export const getImages = ({ rover, date }) => {
+  console.log('rover', rover, 'date', date)
+  return axios.get(`${BASE_URL}/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=DEMO_KEY`)
+    .then((response) => {
+      console.log('get images', response.data);
+      return response.data;
+    }).catch((err) => {
+      console.log('err', err)
+      throw err;
+    })
+};
